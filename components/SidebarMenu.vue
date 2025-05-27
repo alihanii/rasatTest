@@ -1,12 +1,12 @@
 <template>
-  <div class="sidebar-container">
+  <div class="sidebar-container ">
     <div :class="['sidebar', { 'sidebar-open': isOpen }]">
       <div class="sidebar-header">
-        <h2 class="logo  font-['Pacifico'] text-primary">{{isOpen ?  'Dashboard' : 'DA' }}</h2>
+        <h2 class="logo  font-['Pacifico'] text-primary">{{ isOpen ? 'Dashboard' : 'DA' }}</h2>
       </div>
 
       <nav class="sidebar-nav">
-        <div v-for="(item, index) in menuItems" :key="index" class="nav-item">
+        <div v-for="(item, index) in sidebarItems" :key="index" class="nav-item">
           <div
               :class="{ active: route.name === item.routeName }"
               class="nav-link"
@@ -15,21 +15,6 @@
 
             <i :class="['nav-icon' , item.icon]"/>
             <span v-show="isOpen" class="nav-text">{{ item.title }}</span>
-          </div>
-
-          <div
-              v-if="item.submenu"
-              class="submenu"
-              :class="{ 'submenu-open': item.isSubmenuOpen && isOpen }"
-          >
-            <NuxtLink
-                v-for="(subItem, subIndex) in item.submenu"
-                :key="subIndex"
-                :to="subItem.route"
-                class="submenu-item"
-            >
-              {{ subItem.title }}
-            </NuxtLink>
           </div>
         </div>
       </nav>
@@ -45,38 +30,12 @@
 </template>
 
 <script setup>
-import {ref, reactive} from "vue";
+import {ref} from "vue";
+import { sidebarItems } from "~/composable";
 
 const route = useRoute();
 const router = useRouter();
 const isOpen = ref(true);
-
-const menuItems = reactive([
-  {
-    title: "home",
-    icon: "ri-dashboard-line",
-    routeName: "index",
-    isActive: true,
-  },
-  {
-    title: "posts",
-    icon: "ri-file-list-line",
-    isSubmenuOpen: false,
-    routeName: "posts",
-  },
-  {
-    title: "new posts",
-    icon: "ri-add-line",
-    isSubmenuOpen: false,
-    routeName: "posts-new",
-  },
-  {
-    title: " Analytics",
-    icon: "ri-bar-chart-line",
-    isSubmenuOpen: false,
-    routeName: "analytics",
-  },
-]);
 
 const toggleSidebar = () => {
   isOpen.value = !isOpen.value;
@@ -91,6 +50,7 @@ const toggleSidebar = () => {
 .sidebar {
   top: 0;
   left: 0;
+  border-radius: 0 10px 10px 0;
   height: 100vh;
   background-color: var(--color-avocado-200);
   color: var(--color-avocado-600);
@@ -221,6 +181,10 @@ const toggleSidebar = () => {
   .sidebar {
     transform: translateX(-100%);
     width: 250px;
+  }
+
+  .sidebar-container {
+    width: 0;
   }
 
   .sidebar-open {

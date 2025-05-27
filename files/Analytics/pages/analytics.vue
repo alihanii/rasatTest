@@ -1,4 +1,6 @@
-<template><div>Home</div></template>
+<template>
+  <BaseContainer>salam</BaseContainer>
+</template>
 
 <script>
 export default {};

@@ -9,7 +9,7 @@
 </template>
 <script setup>
 </script>
-<style>
+<style scoped>
 .app-container {
   display: flex;
   min-height: 100vh;
@@ -24,6 +24,8 @@
 @media (max-width: 768px) {
   .main-content {
     margin-left: 0;
+    padding: 1rem;
+
   }
 }
 </style>

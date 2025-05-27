@@ -14,6 +14,6 @@ export default defineNuxtConfig({
         }
     },
     css: ["~/assets/css/main.css"],
-    extends: ["./files/home", "./files/posts", "./files/analytics"],
+    extends: ["./files/posts", "./files/analytics"],
     modules: ["@nuxt/eslint", "@nuxt/fonts", "@nuxt/icon", "@nuxt/ui"],
 });

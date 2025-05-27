@@ -9,15 +9,23 @@
       >
         <Loader v-if="loadingStates[index]"/>
         <img
+            class="!object-cover"
             :src="slide.src"
             :alt="slide.label"
             @load="loadingStates[index] = false"
         >
+
+        <div class="slide-text"
+        >
+          <h6 class="text-3xl font-bold mb-2">{{ slide.text.title }}</h6>
+          <span class="text-xl ">{{ slide.text.description }}</span>
+        </div>
+
         <button
             class="slide-label"
             @click="router.push({ name: slide.routeName })"
         >
-          {{ slide.label }}
+          {{ slide.text.label }}
         </button>
       </div>
     </div>
@@ -50,7 +58,7 @@ const Loader = LoaderComponent as Component;
 
 interface Slide {
   src: string;
-  label: string;
+  text: { label: string, title: string, description: string };
   routeName: string;
 }
 
@@ -154,9 +162,21 @@ onUnmounted(() => {
   transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
+.slide-text {
+  background: var(--color-op-avocado-600);
+  color: var(--color-avocado-200);
+  position: absolute;
+  top: 5%;
+  left: 20px;
+  padding: 8px 16px;
+  border-radius: 4px;
+
+}
+
 .slide-label:hover {
   transform: scale(1.05);
   background: rgba(0, 0, 0, 0.8);
+
 }
 
 .nav-button {
@@ -170,18 +190,9 @@ onUnmounted(() => {
   font-size: 1.5rem;
   transition: all 0.3s ease;
   z-index: 2;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.nav-button:hover {
-  background: white;
-  transform: translateY(-50%) scale(1.1);
 }
 
 .nav-button.prev {
@@ -229,6 +240,10 @@ onUnmounted(() => {
   .slide-label {
     font-size: 1rem;
     padding: 6px 12px;
+  }
+
+  .dots-container {
+    left: 85%;
   }
 }
 </style>

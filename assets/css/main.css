@@ -20,6 +20,7 @@
     --color-avocado-400: oklch(0.92 0.19 114.08);
     --color-avocado-500: oklch(0.84 0.18 117.33);
     --color-avocado-600: oklch(0.53 0.12 118.34);
+    --color-op-avocado-600: oklch(0.526 0.119 117.963 / 0.7);
     --color-gray-300: oklch(87.2% 0.01 258.338);
     --color-gray-600: oklch(55.1% 0.027 264.364);
 }
