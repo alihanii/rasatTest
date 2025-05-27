@@ -179,7 +179,7 @@ const toggleSidebar = () => {
 /* Responsive styles */
 @media (max-width: 768px) {
   .sidebar {
-    transform: translateX(-100%);
+    transform: translateX(+100%);
     width: 250px;
   }
 

@@ -21,7 +21,6 @@ const slides = [
   },
   {
     src: "https://picsum.photos/1200/400?random=3",
-
     routeName: "posts-new",
     text: {
       label: "see all the posts",

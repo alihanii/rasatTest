@@ -5,6 +5,8 @@ export default defineNuxtConfig({
     devtools: {enabled: true},
     app: {
         head: {
+            htmlAttrs: {dir: 'rtl', lang: 'fa'},
+
             link: [
                 {
                     rel: 'stylesheet',

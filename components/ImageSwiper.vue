@@ -1,5 +1,6 @@
 <template>
-  <div class="swiper-container">
+  <div class="swiper-container" dir="ltr"
+  >
     <div class="swiper-wrapper" :style="wrapperStyle">
       <div
           v-for="(slide, index) in slides"
@@ -30,10 +31,10 @@
       </div>
     </div>
 
-    <button class="nav-button prev" @click="prevSlide">
+    <button class="nav-button next" @click="prevSlide">
       <span>❮</span>
     </button>
-    <button class="nav-button next" @click="nextSlide">
+    <button class="nav-button prev" @click="nextSlide">
       <span>❯</span>
     </button>
 
@@ -196,11 +197,11 @@ onUnmounted(() => {
 }
 
 .nav-button.prev {
-  left: 10px;
+  right: 10px;
 }
 
 .nav-button.next {
-  right: 10px;
+  left: 10px;
 }
 
 .dots-container {
