@@ -9,15 +9,17 @@
       :disabled="disabled || loading"
       @click="$emit('click', $event)"
   >
-    <Loader v-if="loading"/>
+    <SpinnerLoading v-if="loading"/>
     <slot v-else/>
   </button>
 </template>
 
 <script setup lang="ts">
+import {SpinnerLoading} from "~/components";
+
 interface Props {
   variant?: "primary" | "text" | "border";
-  size?: "small" | "medium" | "large";
+  size?: "tiny" | "small" | "medium" | "large";
   disabled?: boolean;
   loading?: boolean;
 }
@@ -48,21 +50,33 @@ defineEmits<{
 }
 
 .base-button:disabled {
-  opacity: 0.6;
+  opacity: 0.8;
   cursor: not-allowed;
 }
 
+.tiny {
+  width: 30px;
+
+  padding: 6px 12px;
+  font-size: 0.875rem;
+}
+
 .small {
+  width: 70px;
+
   padding: 6px 12px;
   font-size: 0.875rem;
 }
 
 .medium {
+  width: 110px;
+
   padding: 8px 16px;
   font-size: 1rem;
 }
 
 .large {
+  width: 140px;
   padding: 12px 24px;
   font-size: 1.125rem;
 }
@@ -73,11 +87,11 @@ defineEmits<{
 }
 
 .variant-primary:hover:not(:disabled) {
-  background-color: var(--color-op-avocado-600);
+  background-color: var(--color-avocado-500);
 }
 
 .variant-primary:active:not(:disabled) {
-  background-color: var(--color-op-avocado-600);
+  background-color: var(--color-avocado-500);
 }
 
 .variant-text {
@@ -86,7 +100,6 @@ defineEmits<{
   padding-left: 8px;
   padding-right: 8px;
 }
-
 
 .variant-border {
   background-color: transparent;

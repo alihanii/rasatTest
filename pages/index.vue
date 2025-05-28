@@ -1,6 +1,7 @@
 <template>
   <div class="main-container">
     <ImageSwiper :slides="slides"/>
+    <div class="h-[1000px]">asdsa</div>
   </div>
 </template>
 
@@ -38,9 +39,9 @@ const slides = [
     }
   }
 ];
-onMounted(() => {
-  Toast('success', 'salam')
-})
+// onMounted(() => {
+//   Toast('success', 'salam')
+// })
 </script>
 
 <style scoped>

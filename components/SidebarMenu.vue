@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-container ">
+  <div :class="['sidebar-container',{ 'sidebar-open': isOpen }]">
     <div :class="['sidebar', { 'sidebar-open': isOpen }]">
       <div class="sidebar-header">
         <h2 class="logo  font-['Pacifico'] text-primary">{{ isOpen ? 'Dashboard' : 'DA' }}</h2>
@@ -14,24 +14,21 @@
           >
 
             <i :class="['nav-icon' , item.icon]"/>
-            <span v-show="isOpen" class="nav-text">{{ item.title }}</span>
+            <span :class="['nav-text',{'nav-show' : !isOpen}]">{{ item.title }}</span>
           </div>
         </div>
       </nav>
-      <button :class="['nav-link']" @click="toggleSidebar">
+      <button :class="[' sidebar-button']" @click="toggleSidebar">
         <i :class="['ri-arrow-right-wide-line ri-xl toggle-button',{rotated : isOpen}]"/>
-        <span v-show="isOpen">Close</span>
       </button>
     </div>
 
-    <!-- Overlay for mobile -->
-    <div v-if="isOpen" class="sidebar-overlay" @click="toggleSidebar"></div>
   </div>
 </template>
 
 <script setup>
 import {ref} from "vue";
-import { sidebarItems } from "~/composable";
+import {sidebarItems} from "~/composables";
 
 const route = useRoute();
 const router = useRouter();
@@ -44,15 +41,18 @@ const toggleSidebar = () => {
 
 <style scoped>
 .sidebar-container {
-
+  position: relative;
+  width: 80px;
 }
 
 .sidebar {
+  position: fixed;
+  right: 0;
   top: 0;
   left: 0;
-  border-radius: 0 10px 10px 0;
+  border-radius: 10px 0 0 10px;
   height: 100vh;
-  background-color: var(--color-avocado-200);
+  background-color: var(--color-avocado-100);
   color: var(--color-avocado-600);
   transition: all 0.3s ease;
   width: 80px;
@@ -69,8 +69,9 @@ const toggleSidebar = () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: .3rem 1rem;
-  border-bottom: 1px solid #2c2c2c;
+  padding: .3rem .4rem;
+  border-bottom: 1px solid var(--color-avocado-600);
+  margin: 0 .8rem;
 }
 
 .logo {
@@ -85,16 +86,6 @@ const toggleSidebar = () => {
   opacity: 1;
   font-size: 1.8rem;
 
-}
-
-.toggle-button {
-  font-size: 1.5rem;
-  padding: 0.2rem;
-  transition: transform 0.4s ease;
-}
-
-.rotated {
-  transform: rotate(180deg);
 }
 
 .sidebar-nav {
@@ -123,7 +114,7 @@ const toggleSidebar = () => {
 }
 
 .nav-link.active {
-  background-color: var(--color-avocado-400);
+  background-color: var(--color-avocado-300);
 }
 
 .nav-icon {
@@ -161,38 +152,90 @@ const toggleSidebar = () => {
   transition: background-color 0.3s ease;
 }
 
-.submenu-item:hover {
-  background-color: #3c3c3c;
-}
-
-.sidebar-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+.nav-show {
   display: none;
 }
 
-/* Responsive styles */
-@media (max-width: 768px) {
+.submenu-item:hover {
+  background-color: #8a8a8a;
+}
+
+.sidebar-button {
+  border-radius: 4px;
+  color: var(--color-avocado-200);
+  background-color: var(--color-avocado-600);
+  padding: .3rem .2rem;
+  position: absolute;
+  left: -12px;
+  bottom: 10%;
+  cursor: pointer;
+}
+
+.toggle-button {
+  font-size: 1.5rem;
+  padding: .2rem 0.1rem;
+  transition: transform 0.4s ease;
+  display: inline-block;
+}
+
+.rotated {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 640px) {
   .sidebar {
-    transform: translateX(+100%);
-    width: 250px;
+    //transform: translateX(+100%);
+    //display: none;
+    height: 70px;
+    width: 100%;
+    bottom: 0;
+    top: initial;
   }
 
   .sidebar-container {
     width: 0;
+
+  }
+
+  .sidebar-header {
+    display: none;
+  }
+
+  .nav-link:hover {
+    background-color: transparent;
+  }
+
+  .nav-link {
+    flex-direction: column;
+    font-size: small;
+    padding: 0;
+    width: 56px;
+    margin: 0;
+  }
+
+  .nav-link.active {
+    background-color: transparent;
+    color: var(--color-avocado-500);
+  }
+
+  .sidebar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    margin: 0 1rem;
+  }
+
+  .sidebar-button {
+    display: none;
   }
 
   .sidebar-open {
-    transform: translateX(0);
+    //width: 0;
   }
 
-  .sidebar-overlay {
-    display: block;
+  .nav-show {
+    display: initial;
   }
 
   .logo {

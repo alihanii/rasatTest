@@ -17,14 +17,15 @@
 
 .main-content {
   flex: 1;
-  padding: 2rem;
-  transition: margin-left 0.3s ease;
+  padding: 1rem 2rem;
+  transition: all 0.3s ease;
 }
 
 @media (max-width: 768px) {
   .main-content {
     margin-left: 0;
-    padding: 1rem;
+    padding: .5rem 1rem;
+    margin-bottom: 80px;
 
   }
 }

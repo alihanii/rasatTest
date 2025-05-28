@@ -1,4 +1,4 @@
-<template><div>adsf</div></template>
+<template><div>asdfasf</div></template>
 
 <script>
 export default {};
