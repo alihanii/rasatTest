@@ -25,6 +25,7 @@
               v-for="(item, index) in pagedData"
               :key="index"
               :class="[rowClass(item, index), 'row']"
+              @click="emit('rowClick', item)"
             >
               <div class="olColumn">
                 {{ (page - 1) * pageSize + index + 1 }}
@@ -42,7 +43,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, defineEmits, ref } from 'vue'
 
 interface Props {
   ol?: boolean
@@ -64,6 +65,10 @@ const props = withDefaults(defineProps<Props>(), {
   isLoading: true,
   headerClass: '',
 })
+
+const emit = defineEmits<{
+  (e: 'rowClick'): any
+}>()
 
 const internalPage = ref(props.page)
 const pagedData = computed(() =>

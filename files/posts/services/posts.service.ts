@@ -15,9 +15,19 @@ export interface Comment {
   body: string
 }
 
-export async function getPosts(query: { page: number; limit: number }): Promise<Post[]> {
+export interface PaginationOptions {
+  _page?: number
+  _limit?: number
+}
+
+// ====================================== Posts ================================================
+
+export async function getPosts(query: {
+  page?: PaginationOptions
+  filters?: object
+}): Promise<Post[]> {
   return await useRequest<Post[]>('https://jsonplaceholder.typicode.com/posts', {
-    queryParams: { _page: query.page, _limit: query.limit },
+    queryParams: { ...query.page, ...query.filters },
   })
 }
 
@@ -40,6 +50,8 @@ export async function deletePost(postId: number): Promise<void> {
     method: 'DELETE',
   })
 }
+
+// ====================================== comments ================================================
 
 export async function getComments(params: { postId: number }): Promise<Comment[]> {
   return await useRequest<Post[]>('https://jsonplaceholder.typicode.com/comments', {

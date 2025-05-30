@@ -35,6 +35,24 @@ const slides = [
       description: 'Lorem ipsum is placeholder text commonly used in the graphic, print,',
     },
   },
+  {
+    src: 'https://picsum.photos/1200/400?random=3',
+    routeName: 'posts-new',
+    text: {
+      label: 'see all the posts',
+      title: 'new posts',
+      description: 'Lorem ipsum is placeholder text commonly used in the graphic, print,',
+    },
+  },
+  {
+    src: 'https://picsum.photos/1200/400?random=4',
+    routeName: 'analytics',
+    text: {
+      label: 'analyse the posts',
+      title: 'analytics',
+      description: 'Lorem ipsum is placeholder text commonly used in the graphic, print,',
+    },
+  },
 ]
 </script>
 

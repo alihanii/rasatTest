@@ -5,15 +5,16 @@
       :data="data ? data : []"
       :rowClass="rowClass"
       class="!h-full"
-      headerClass="data-list_header !mb-0"
+      headerClass="data-list_header !mb-2"
       :pageSize="10"
       :page="pageNumber"
       :isLoading="loading"
+      @rowClick="(e) => toggleItem(e)"
     >
       <template #columns="{ item, isHeader }">
         <DataListColumn :width="250">
           <template v-if="isHeader" #header>
-            <p>title</p>
+            <SerachInput title="title" v-model="searchTitle" />
           </template>
           <template v-else #default>
             <p class="truncate">{{ item.title }}</p>
@@ -22,19 +23,24 @@
 
         <DataListColumn :width="350">
           <template v-if="isHeader" #header>
-            <p>body</p>
+            <SerachInput v-model="searchBody" title="body" />
           </template>
           <template v-else #default>
             <p class="truncate">{{ item.body }}</p>
           </template>
         </DataListColumn>
 
-        <DataListColumn :width="50">
+        <DataListColumn :width="100">
           <template v-if="isHeader" #header>
-            <p>userId</p>
+            <BaseFilterHeader
+              :sortOrder="orderUserID"
+              @sort-toggle="orderUserID = $event"
+              @filter-click="openFilter"
+              >userId
+            </BaseFilterHeader>
           </template>
           <template v-else #default>
-            <p>{{ item.id }}</p>
+            <p>{{ item.userId }}</p>
           </template>
         </DataListColumn>
         <DataListColumn sticky width="1">
@@ -168,18 +174,25 @@ import { ref } from 'vue'
 
 import { Pagination } from '~/components'
 import { deletePost, getComments, getPosts, type Post, updatePost } from '~/files/posts/services'
-import { useFetching } from '~/composables'
+import { useFetching, useBuildFilters } from '~/composables'
 import { deepClone, sleep, Toast } from '~/extention'
 
 const persianRegEx = /[\u0600-\u06FF]/
 
-const rowClass = () => 'bg-avocado-200 !h-[55px]'
+const rowClass = (e: Post) => {
+  const idx = selectedRow.value.some((item) => item.id === e.id)
+  return ['bg-avocado-200 !h-[55px] cursor-pointer', { 'border-2 border-avocado-500': idx }]
+}
 
 const selectedDelete = ref<Post | null>(null)
 const selectedEdit = ref<Post | null>(null)
 const selectedSeeComment = ref<Post | null>(null)
 const data = ref<Post[]>([])
 const pageNumber = ref(1)
+const searchTitle = ref('')
+const searchBody = ref('')
+const orderUserID = ref<'asc' | 'desc' | ''>('')
+const selectedRow = ref<Post[]>([])
 
 // ===================================================================================================
 
@@ -196,11 +209,32 @@ const titleErrored = computed(() => {
   return persianRegEx.test(String(selectedEdit.value.title))
 })
 
+function toggleItem(item: Post) {
+  const idx = selectedRow.value.find((x) => x.id === item.id)
+  selectedRow.value = !idx
+    ? [...selectedRow.value, item]
+    : selectedRow.value.filter((post) => post.id !== item.id)
+}
+
+// ===================================================================================================
+
+const filtersComputed = computed(() =>
+  useBuildFilters([
+    { type: 'search', field: 'title', value: searchTitle.value },
+    { type: 'search', field: 'body', value: searchBody.value },
+    { type: 'sort', field: 'userId', value: orderUserID.value },
+  ]),
+)
+
 // ===================================================================================================
 
 const { loading } = useFetching(
-  () => getPosts({ page: pageNumber.value, limit: 10 }),
-  [pageNumber],
+  () =>
+    getPosts({
+      page: { _page: pageNumber.value, _limit: 10 },
+      filters: filtersComputed.value,
+    }),
+  [pageNumber, filtersComputed],
   {
     immediate: true,
     onSuccess: (posts) => {
@@ -250,7 +284,7 @@ const {
   loading: CommentsLoading,
   fetchData: CommentsFetch,
   data: commentData,
-} = useFetching(() => getComments({ postId: selectedSeeComment.value?.id }), {
+} = useFetching(() => getComments({ postId: selectedSeeComment.value?.id }), [], {
   immediate: false,
 })
 </script>
