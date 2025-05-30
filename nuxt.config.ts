@@ -18,7 +18,7 @@ export default defineNuxtConfig({
   },
   css: ['~/assets/css/main.css'],
   extends: ['./files/posts', './files/analytics'],
-  modules: ['@nuxt/eslint', '@nuxt/fonts', '@nuxt/icon', '@nuxt/ui'],
+  modules: ['@nuxt/eslint', '@nuxt/fonts', '@nuxt/icon', '@nuxt/ui', '@vite-pwa/nuxt'],
   pwa: {
     registerType: 'autoUpdate',
     manifest: {
