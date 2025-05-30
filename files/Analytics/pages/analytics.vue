@@ -13,6 +13,9 @@
           <i class="ri-upload-2-line pt-1" />
         </BaseButton>
       </div>
+      <ClientOnly>
+        <WeekChart />
+      </ClientOnly>
     </BaseContainer>
     <BaseContainer>
       <div class="flex items-center justify-between">
@@ -27,12 +30,16 @@
           <i class="ri-upload-2-line pt-1" />
         </BaseButton>
       </div>
+      <ClientOnly>
+        <CountryChart />
+      </ClientOnly>
     </BaseContainer>
   </div>
 </template>
 
-<script>
-export default {}
+<script setup lang="ts">
+import WeekChart from '~/files/Analytics/component/WeekChart.vue'
+import CountryChart from '~/files/Analytics/component/CountryChart.vue'
 </script>
 
 <style></style>

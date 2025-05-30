@@ -3,6 +3,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   devtools: { enabled: true },
+  build: { transpile: ['vue3-apexcharts', 'apexcharts'] },
   app: {
     head: {
       htmlAttrs: { dir: 'rtl', lang: 'fa' },

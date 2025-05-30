@@ -53,7 +53,7 @@
               <BaseButton
                 size="tiny"
                 class="hover:text-primary h-8 text-gray-600"
-                @click="
+                @click.stop="
                   () => {
                     selectedSeeComment = item
                     CommentsFetch()
@@ -65,14 +65,14 @@
               <BaseButton
                 size="tiny"
                 class="hover:text-primary h-8 text-gray-600"
-                @click="() => (selectedEdit = deepClone(item))"
+                @click.stop="() => (selectedEdit = deepClone(item))"
               >
                 <i class="ri-edit-line" />
               </BaseButton>
               <BaseButton
                 class="h-8 text-gray-600 hover:text-red-500"
                 size="tiny"
-                @click="() => (selectedDelete = item)"
+                @click.stop="() => (selectedDelete = item)"
               >
                 <i class="ri-delete-bin-line" />
               </BaseButton>
