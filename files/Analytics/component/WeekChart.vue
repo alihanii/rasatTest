@@ -1,34 +1,44 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import type { ApexOptions } from 'apexcharts'
 
-const chartRef = ref()
+const chartRef = ref<any>()
 
-function exportChart() {
-  if (chartRef.value?.chartRef?.chart) {
-    chartRef.value.chartRef.chart.dataURI().then(({ imgURI, blob }) => {
-      const a = document.createElement('a')
-      a.href = imgURI
-      a.download = 'visits_chart.png'
-      a.click()
-    })
+const handleExport = async () => {
+  const chart = chartRef.value?.chartRef?.chart
+  if (chart) {
+    await exportChartAsPDF(chart, { filename: 'بازدید-هفتگی.pdf', orientation: 'landscape' })
   }
+}
+
+const op: ApexOptions = {
+  chart: { id: 'visits-chart', toolbar: { show: false } },
+  xaxis: {
+    categories: ['شنبه', 'یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه'],
+  },
+  dataLabels: { enabled: false },
 }
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="space-y-4 text-right">
+    <div class="flex items-center justify-between">
+      <span>نمودار بازدید براساس هفته</span>
+      <BaseButton
+        size="small"
+        variant="text"
+        class="cursor-pointer gap-3 md:gap-4"
+        @click="handleExport"
+      >
+        pdf
+        <i class="ri-upload-2-line pt-1" />
+      </BaseButton>
+    </div>
     <BaseChart
       ref="chartRef"
       type="line"
-      :series="[{ name: 'Visits', data: [120, 200, 150, 170, 240, 300, 180] }]"
-      :options="{
-        chart: { id: 'visits-chart', toolbar: { show: true } },
-        xaxis: { categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] },
-        dataLabels: { enabled: true },
-      }"
+      :series="[{ name: 'بازدید', data: [120, 200, 150, 170, 240, 300, 180] }]"
+      :options="op"
     />
-    <button @click="exportChart" class="rounded bg-blue-500 px-4 py-2 text-white">
-      Export Chart
-    </button>
   </div>
 </template>

@@ -20,10 +20,23 @@ const chartRef = ref()
 
 defineExpose({ chartRef })
 
-const mergedOpts = computed<ApexOptions>(() => ({
-  chart: { id: 'base-chart', toolbar: { show: true } },
-  ...props.options,
-}))
+const mergedOpts = computed<ApexOptions>(() => {
+  return {
+    ...props.options,
+    chart: { id: 'base-chart', toolbar: { show: false }, fontFamily: 'Estedad, sans-serif' },
+    xaxis: {
+      ...(props.options?.xaxis || {}),
+      reversed: true,
+    },
+    style: {
+      fontFamily: 'Estedad, sans-serif',
+    },
+    legend: {
+      position: 'bottom',
+      horizontalAlign: 'right',
+    },
+  }
+})
 </script>
 
 <template>
@@ -38,3 +51,5 @@ const mergedOpts = computed<ApexOptions>(() => ({
     />
   </ClientOnly>
 </template>
+
+<style scoped></style>
