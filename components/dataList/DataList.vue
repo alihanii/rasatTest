@@ -1,6 +1,19 @@
 <template>
   <div class="dataList">
     <div class="dataListWrapper">
+      <div class="dataListHeader">
+        <h2>{{ label }}</h2>
+        <BaseButton
+          v-if="data.length && hasExel"
+          class="exportBtn"
+          @click="exportExcel"
+          size="medium"
+          title="Download visible columns as .xlsx"
+        >
+          Export Excel
+        </BaseButton>
+      </div>
+
       <div>
         <div :class="[headerClass, 'header']">
           <div class="olHeader">
@@ -37,13 +50,14 @@
         </div>
       </div>
       <div class="right-0 bottom-[-60px]">
-        <slot v-if="data.length" name="pagination" />
+        <slot name="pagination" />
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import { computed, defineEmits, ref } from 'vue'
+import * as XLSX from 'xlsx'
 
 interface Props {
   ol?: boolean
@@ -54,6 +68,8 @@ interface Props {
   pageSize?: number
   isLoading?: boolean
   headerClass?: string
+  hasExel?: boolean
+  label?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -61,9 +77,11 @@ const props = withDefaults(defineProps<Props>(), {
   rowClass: () => '',
   class: '',
   page: 1,
+  hasExel: true,
   pageSize: 10,
   isLoading: true,
   headerClass: '',
+  label: '',
 })
 
 const emit = defineEmits<{
@@ -74,8 +92,24 @@ const internalPage = ref(props.page)
 const pagedData = computed(() =>
   props.data.slice((internalPage.value - 1) * props.pageSize, internalPage.value * props.pageSize),
 )
+
+function exportExcel() {
+  const ws = XLSX.utils.json_to_sheet(props.data)
+  const wb = XLSX.utils.book_new()
+  XLSX.utils.book_append_sheet(wb, ws, 'Data')
+  XLSX.writeFile(wb, 'data-list.xlsx')
+}
 </script>
 <style scoped>
+.dataListHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--color-avocado-600);
+}
+
 .notFound {
   height: 100px;
   display: flex;

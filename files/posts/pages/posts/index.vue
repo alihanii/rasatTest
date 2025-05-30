@@ -1,5 +1,5 @@
 <template>
-  <BaseContainer class="h-[716px]">
+  <BaseContainer class="h-[770px]">
     <DataList
       :ol="false"
       :data="data ? data : []"
@@ -9,6 +9,7 @@
       :pageSize="10"
       :page="pageNumber"
       :isLoading="loading"
+      label="posts"
       @rowClick="(e) => toggleItem(e)"
     >
       <template #columns="{ item, isHeader }">
