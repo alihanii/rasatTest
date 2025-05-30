@@ -14,7 +14,7 @@
         </BaseButton>
       </div>
 
-      <div>
+      <div class="flex-1">
         <div :class="[headerClass, 'header']">
           <div class="olHeader">
             <span>ID</span>

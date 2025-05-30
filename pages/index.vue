@@ -7,6 +7,12 @@
 <script setup lang="ts">
 import ImageSwiper from '~/components/ImageSwiper.vue'
 
+useMetaTags({
+  title: 'Home - My Nuxt App',
+  description: 'Welcome to the homepage of My Nuxt App.',
+  keywords: 'home, welcome, nuxt3',
+})
+
 const slides = [
   {
     src: 'https://picsum.photos/1200/400?random=2',

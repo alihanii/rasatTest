@@ -12,7 +12,6 @@ export function useBuildFilters(
   )
 
   const filterList = [...list.filter((item) => item.type !== 'filter'), ...expanded]
-  console.log(filterList)
   for (const c of filterList) {
     if (c.value === '' || c.value == null) continue
 

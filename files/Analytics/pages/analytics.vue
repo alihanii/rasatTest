@@ -12,6 +12,12 @@
 <script setup lang="ts">
 import WeekChart from '~/files/Analytics/component/WeekChart.vue'
 import CountryChart from '~/files/Analytics/component/CountryChart.vue'
+
+useMetaTags({
+  title: 'Analysis & Reports',
+  description: 'Deep insights and analytics on various topics.',
+  keywords: 'analysis, insights, reports, nuxt',
+})
 </script>
 
 <style></style>

@@ -8,8 +8,9 @@
         @click="() => (route.name !== 'index' ? router.back() : '')"
       >
         {{ route.name == 'index' ? 'home' : route.name }}
-        <i class="ri-arrow-right-line pt-1" />
+        <i v-if="route.name !== 'index'" class="ri-arrow-right-line pt-1" />
       </BaseButton>
+      <img src="/logo.png" alt="logo" class="w-[38px] mix-blend-normal" />
     </div>
   </baseContainer>
 </template>

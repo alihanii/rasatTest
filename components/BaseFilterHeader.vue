@@ -2,6 +2,7 @@
 <template>
   <div class="filter-sort">
     <button
+      v-if="hasSort"
       @click="
         () => {
           handleOrder()
@@ -13,7 +14,7 @@
     </button>
 
     <slot />
-    <button @click="$emit('filterClick')">
+    <button v-if="hasFilter" @click="$emit('filterClick')">
       <i class="ri-filter-3-line filter-icon" />
     </button>
   </div>
@@ -22,9 +23,16 @@
 <script lang="ts" setup>
 import { computed, defineEmits, defineProps } from 'vue'
 
-const props = defineProps<{
+interface Props {
   sortOrder?: 'asc' | 'desc' | ''
-}>()
+  hasFilter?: boolean
+  hasSort?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  hasFilter: false,
+  hasSort: false,
+})
 
 const emit = defineEmits<{
   (e: 'sortToggle'): 'asc' | 'desc' | ''

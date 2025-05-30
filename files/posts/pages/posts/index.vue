@@ -34,6 +34,7 @@
         <DataListColumn :width="100">
           <template v-if="isHeader" #header>
             <BaseFilterHeader
+              hasSort
               :sortOrder="orderUserID"
               @sort-toggle="orderUserID = $event"
               @filter-click="openFilter"
@@ -287,5 +288,13 @@ const {
   data: commentData,
 } = useFetching(() => getComments({ postId: selectedSeeComment.value?.id }), [], {
   immediate: false,
+})
+
+// ===================================================================================================
+
+useMetaTags({
+  title: 'Home Page',
+  description: 'Explore the latest posts and updates.',
+  keywords: 'posts, updates, blog',
 })
 </script>

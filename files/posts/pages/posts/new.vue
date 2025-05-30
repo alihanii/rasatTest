@@ -62,9 +62,14 @@ const { loading, fetchData } = useFetching(() => createPost(newPost.value), [], 
     Toast('success', 'post created')
   },
   onError(errMsg) {
-    console.log(errMsg)
     Toast('error', errMsg)
   },
+})
+
+useMetaTags({
+  title: 'New Posts',
+  description: 'Check out the most recent articles and posts.',
+  keywords: 'new posts, latest, blog',
 })
 </script>
 
