@@ -1,14 +1,11 @@
 <template>
   <div class="main-container">
-    <ImageSwiper :slides="slides"/>
-    <div class="h-[1000px]">asdsa</div>
+    <ImageSwiper class="w-full" :slides="slides"/>
   </div>
 </template>
 
 <script setup lang="ts">
-import {onMounted} from "vue";
 import ImageSwiper from "~/components/ImageSwiper.vue";
-import {Toast} from "~/extention";
 
 const slides = [
   {
@@ -39,9 +36,6 @@ const slides = [
     }
   }
 ];
-// onMounted(() => {
-//   Toast('success', 'salam')
-// })
 </script>
 
 <style scoped>

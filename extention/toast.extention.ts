@@ -11,7 +11,7 @@ export function Toast(type: ToastType, message: string, options?: ToastOptions) 
         type: type,
         rtl: true,
         theme: "colored",
-        position: "bottom-center",
+        position: "top-center",
         ...options
     });
 }

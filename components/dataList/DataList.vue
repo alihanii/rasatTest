@@ -20,18 +20,16 @@
                 v-for="(item, index) in pageSize"
                 :key="index"
                 :class="[rowClass(item, index), 'row']"
-                :style="{ height: rowHeight}"
-
             >
               <BaseSkeleton height="100%" width="100%" class="rounded"/>
             </div>
           </div>
+          <div v-else-if="!data.length" class="notFound">not found any things</div>
           <div v-else class="rowList">
             <div
                 v-for="(item, index) in pagedData"
                 :key="index"
                 :class="[rowClass(item, index), 'row']"
-                :style="{ height: rowHeight}"
             >
               <div
                   class="olColumn"
@@ -47,6 +45,7 @@
       </div>
       <div class="right-0 bottom-[-60px]">
         <slot
+            v-if="data.length"
             name="pagination"
         />
       </div>
@@ -59,7 +58,6 @@ import {computed, ref} from 'vue';
 
 interface Props {
   ol?: boolean;
-  rowHeight?: string;
   data: any[];
   rowClass?: (row: any) => string;
   class?: string;
@@ -71,7 +69,6 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   ol: false,
-  rowHeight: '50px',
   rowClass: () => '',
   class: '',
   page: 1,
@@ -92,6 +89,12 @@ const pagedData = computed(() =>
 </script>
 <style scoped>
 
+.notFound {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .dataList {
   position: relative;
@@ -111,6 +114,7 @@ const pagedData = computed(() =>
 }
 
 .header {
+  gap: 20px;
   margin-top: 10px;
   height: 40px;
   display: flex;
@@ -140,6 +144,7 @@ const pagedData = computed(() =>
   display: flex;
   align-items: center;
   border-radius: 12px;
+  gap: 20px;
 }
 
 .olColumn {

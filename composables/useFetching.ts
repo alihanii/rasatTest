@@ -1,16 +1,18 @@
 import type {Ref} from 'vue';
 import {ref, watch} from 'vue';
 
-interface UseFetchingOptions {
+interface UseFetchingOptions<T> {
     immediate?: boolean;
+    onSuccess?: (data: T) => void;
+    onError?: (error: string) => void;
 }
 
 export function useFetching<T>(
     apiFunc: () => Promise<T>,
     keys: Ref<any>[],
-    options: UseFetchingOptions = {immediate: true}
+    options?: UseFetchingOptions<T>
 ) {
-    const {immediate = true} = options;
+    const {immediate = true, onSuccess, onError} = options ?? {};
 
     const loading = ref(false);
     const error = ref<string | null>(null);
@@ -23,12 +25,22 @@ export function useFetching<T>(
         isSuccess.value = false;
 
         try {
-            data.value = await apiFunc();
+            const result = await apiFunc();
+            data.value = result;
             isSuccess.value = true;
+
+            if (onSuccess) {
+                onSuccess(result);
+            }
         } catch (err: any) {
-            error.value = err.message || 'Unknown error';
+            const errorMessage = err?.message || 'Unknown error';
+            error.value = errorMessage;
             data.value = null;
             isSuccess.value = false;
+
+            if (onError) {
+                onError(errorMessage);
+            }
         } finally {
             loading.value = false;
         }
