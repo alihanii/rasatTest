@@ -5,6 +5,7 @@ interface UseFetchingOptions<T> {
   immediate?: boolean
   onSuccess?: (data: T) => void
   onError?: (error: string) => void
+  onFinally?: () => void
 }
 
 export function useFetching<T>(
@@ -12,7 +13,7 @@ export function useFetching<T>(
   keys: Ref<any>[],
   options?: UseFetchingOptions<T>,
 ) {
-  const { immediate = true, onSuccess, onError } = options ?? {}
+  const { immediate = true, onSuccess, onFinally, onError } = options ?? {}
 
   const loading = ref(false)
   const error = ref<string | null>(null)
@@ -43,6 +44,7 @@ export function useFetching<T>(
       }
     } finally {
       loading.value = false
+      onFinally?.()
     }
   }
 

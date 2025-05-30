@@ -28,9 +28,9 @@ export async function createPost(post: Post): Promise<Post> {
   })
 }
 
-export async function updatePost(postId: number, post: Partial<Post>): Promise<Post> {
+export async function updatePost(postId: number, post: Post): Promise<Post> {
   return await useRequest<Post>(`https://jsonplaceholder.typicode.com/posts/${postId}`, {
-    method: 'PATCH',
+    method: 'PUT',
     body: post,
   })
 }
@@ -41,7 +41,7 @@ export async function deletePost(postId: number): Promise<void> {
   })
 }
 
-export async function getComments(params: { postId: number }): Promise<Comment> {
+export async function getComments(params: { postId: number }): Promise<Comment[]> {
   return await useRequest<Post[]>('https://jsonplaceholder.typicode.com/comments', {
     queryParams: { postId: params.postId },
   })

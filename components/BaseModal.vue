@@ -12,7 +12,7 @@
           <slot name="body" />
         </section>
         <footer class="modal-footer">
-          <slot name="footer"> </slot>
+          <slot name="footer"></slot>
         </footer>
       </div>
     </div>
@@ -66,7 +66,7 @@ function close() {
 }
 
 .modal-content {
-  background: white;
+  background: var(--background);
   border-radius: 6px;
   max-width: 500px;
   width: 90%;
@@ -101,6 +101,7 @@ function close() {
     width: 100%;
     position: absolute;
     bottom: 0;
+    padding: 0.5rem 1rem;
   }
 }
 </style>
