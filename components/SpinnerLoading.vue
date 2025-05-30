@@ -1,34 +1,22 @@
 <template>
   <div
-      class="spinner"
-      role="status"
-      aria-label="Loading"
-      :style="{ width: size + 'px', height: size + 'px' }"
+    class="spinner"
+    role="status"
+    aria-label="Loading"
+    :style="{ width: size + 'px', height: size + 'px' }"
   >
-    <svg
-        class="spinner-svg"
-        viewBox="0 0 50 50"
-        aria-hidden="true"
-        focusable="false"
-    >
-      <circle
-          class="spinner-circle"
-          cx="25"
-          cy="25"
-          r="20"
-          fill="none"
-          stroke-width="5"
-      />
+    <svg class="spinner-svg" viewBox="0 0 50 50" aria-hidden="true" focusable="false">
+      <circle class="spinner-circle" cx="25" cy="25" r="20" fill="none" stroke-width="5" />
     </svg>
   </div>
 </template>
 
 <script setup lang="ts">
-import {defineProps} from "vue";
+import { defineProps } from 'vue'
 
 withDefaults(defineProps<{ size?: number }>(), {
-  size: 20
-});
+  size: 20,
+})
 </script>
 
 <style scoped>

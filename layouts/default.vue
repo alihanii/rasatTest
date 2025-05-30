@@ -1,14 +1,13 @@
 <template>
   <div class="app-container">
-    <SidebarMenu/>
+    <SidebarMenu />
     <main class="main-content">
-      <HeaderMenu/>
-      <slot/>
+      <HeaderMenu />
+      <slot />
     </main>
   </div>
 </template>
-<script setup>
-</script>
+<script setup></script>
 <style scoped>
 .app-container {
   display: flex;
@@ -24,9 +23,8 @@
 @media (max-width: 768px) {
   .main-content {
     margin-left: 0;
-    padding: .5rem 1rem;
+    padding: 0.5rem 1rem;
     margin-bottom: 80px;
-
   }
 }
 </style>

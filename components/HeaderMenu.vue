@@ -1,26 +1,21 @@
 <template>
   <baseContainer class="mb-4">
-    <div class="h-[30px] md:text-xl w-full flex items-center justify-end">
+    <div class="flex h-[30px] w-full items-center justify-end md:text-xl">
       <BaseButton
-          size="large"
-          variant="text"
-          class="md:gap-4 gap-3 cursor-pointer !p-0 !m-0"
-          @click="()=>route.name !== 'index' ? router.back() :''"
+        size="large"
+        variant="text"
+        class="!m-0 cursor-pointer gap-3 !p-0 md:gap-4"
+        @click="() => (route.name !== 'index' ? router.back() : '')"
       >
         {{ route.name == 'index' ? 'home' : route.name }}
-        <i class="ri-arrow-right-line  pt-1"/>
+        <i class="ri-arrow-right-line pt-1" />
       </BaseButton>
     </div>
   </baseContainer>
-
-
 </template>
 <script setup lang="ts">
-
-const route = useRoute();
-const router = useRouter();
+const route = useRoute()
+const router = useRouter()
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

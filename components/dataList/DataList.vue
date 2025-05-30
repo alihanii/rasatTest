@@ -1,70 +1,58 @@
 <template>
   <div class="dataList">
     <div class="dataListWrapper">
-
       <div>
         <div :class="[headerClass, 'header']">
-          <div
-              class="olHeader"
-          >
+          <div class="olHeader">
             <span>ID</span>
-
           </div>
 
-          <slot name="columns" :isHeader="true"/>
+          <slot name="columns" :isHeader="true" />
         </div>
         <div>
           <div v-if="isLoading" class="rowList">
-
             <div
-                v-for="(item, index) in pageSize"
-                :key="index"
-                :class="[rowClass(item, index), 'row']"
+              v-for="(item, index) in pageSize"
+              :key="index"
+              :class="[rowClass(item, index), 'row']"
             >
-              <BaseSkeleton height="100%" width="100%" class="rounded"/>
+              <BaseSkeleton height="100%" width="100%" class="rounded" />
             </div>
           </div>
           <div v-else-if="!data.length" class="notFound">not found any things</div>
           <div v-else class="rowList">
             <div
-                v-for="(item, index) in pagedData"
-                :key="index"
-                :class="[rowClass(item, index), 'row']"
+              v-for="(item, index) in pagedData"
+              :key="index"
+              :class="[rowClass(item, index), 'row']"
             >
-              <div
-                  class="olColumn"
-              >
+              <div class="olColumn">
                 {{ (page - 1) * pageSize + index + 1 }}
               </div>
 
-              <slot name="columns" :item="item" :index="index" :isHeader="false"/>
+              <slot name="columns" :item="item" :index="index" :isHeader="false" />
             </div>
           </div>
-
         </div>
       </div>
       <div class="right-0 bottom-[-60px]">
-        <slot
-            v-if="data.length"
-            name="pagination"
-        />
+        <slot v-if="data.length" name="pagination" />
       </div>
     </div>
   </div>
-
 </template>
 <script setup lang="ts">
-import {computed, ref} from 'vue';
+import { computed, ref } from 'vue'
 
 interface Props {
-  ol?: boolean;
-  data: any[];
-  rowClass?: (row: any) => string;
-  class?: string;
-  page?: number;
-  pageSize?: number;
-  isLoading?: boolean;
-  headerClass?: string;
+  ol?: boolean
+  data: any[]
+  rowClass?: (row: any) => string
+  class?: string
+  page?: number
+  pageSize?: number
+  isLoading?: boolean
+  headerClass?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -75,20 +63,14 @@ const props = withDefaults(defineProps<Props>(), {
   pageSize: 10,
   isLoading: true,
   headerClass: '',
-});
+})
 
-
-const internalPage = ref(props.page);
+const internalPage = ref(props.page)
 const pagedData = computed(() =>
-    props.data.slice(
-        (internalPage.value - 1) * props.pageSize,
-        internalPage.value * props.pageSize
-    )
-);
-
+  props.data.slice((internalPage.value - 1) * props.pageSize, internalPage.value * props.pageSize),
+)
 </script>
 <style scoped>
-
 .notFound {
   height: 100px;
   display: flex;
@@ -136,7 +118,7 @@ const pagedData = computed(() =>
 .rowList {
   display: flex;
   flex-direction: column;
-  gap: .2rem;
+  gap: 0.2rem;
   min-width: max-content;
 }
 

@@ -1,42 +1,40 @@
 <template>
-  <div :class="['sidebar-container',{ 'sidebar-open': isOpen }]">
+  <div :class="['sidebar-container', { 'sidebar-open': isOpen }]">
     <div :class="['sidebar', { 'sidebar-open': isOpen }]">
       <div class="sidebar-header">
-        <h2 class="logo  font-['Pacifico'] text-primary">{{ isOpen ? 'Dashboard' : 'DA' }}</h2>
+        <h2 class="logo text-primary font-['Pacifico']">{{ isOpen ? 'Dashboard' : 'DA' }}</h2>
       </div>
 
       <nav class="sidebar-nav">
         <div v-for="(item, index) in sidebarItems" :key="index" class="nav-item">
           <div
-              :class="{ active: route.name === item.routeName }"
-              class="nav-link"
-              @click="() => router.push({ name: item.routeName })"
+            :class="{ active: route.name === item.routeName }"
+            class="nav-link"
+            @click="() => router.push({ name: item.routeName })"
           >
-
-            <i :class="['nav-icon' , item.icon]"/>
-            <span :class="['nav-text',{'nav-show' : !isOpen}]">{{ item.title }}</span>
+            <i :class="['nav-icon', item.icon]" />
+            <span :class="['nav-text', { 'nav-show': !isOpen }]">{{ item.title }}</span>
           </div>
         </div>
       </nav>
-      <button :class="[' sidebar-button']" @click="toggleSidebar">
-        <i :class="['ri-arrow-right-wide-line ri-xl toggle-button',{rotated : isOpen}]"/>
+      <button :class="['sidebar-button']" @click="toggleSidebar">
+        <i :class="['ri-arrow-right-wide-line ri-xl toggle-button', { rotated: isOpen }]" />
       </button>
     </div>
-
   </div>
 </template>
 
 <script setup>
-import {ref} from "vue";
-import {sidebarItems} from "~/composables";
+import { ref } from 'vue'
+import { sidebarItems } from '~/composables'
 
-const route = useRoute();
-const router = useRouter();
-const isOpen = ref(true);
+const route = useRoute()
+const router = useRouter()
+const isOpen = ref(true)
 
 const toggleSidebar = () => {
-  isOpen.value = !isOpen.value;
-};
+  isOpen.value = !isOpen.value
+}
 </script>
 
 <style scoped>
@@ -69,9 +67,9 @@ const toggleSidebar = () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: .3rem .4rem;
+  padding: 0.3rem 0.4rem;
   border-bottom: 1px solid var(--color-avocado-600);
-  margin: 0 .8rem;
+  margin: 0 0.8rem;
 }
 
 .logo {
@@ -85,12 +83,11 @@ const toggleSidebar = () => {
 .sidebar-open .logo {
   opacity: 1;
   font-size: 1.8rem;
-
 }
 
 .sidebar-nav {
   padding: 1rem 0;
-  flex: 1
+  flex: 1;
 }
 
 .nav-item {
@@ -164,7 +161,7 @@ const toggleSidebar = () => {
   border-radius: 4px;
   color: var(--color-avocado-200);
   background-color: var(--color-avocado-600);
-  padding: .3rem .2rem;
+  padding: 0.3rem 0.2rem;
   position: absolute;
   left: -12px;
   bottom: 10%;
@@ -173,7 +170,7 @@ const toggleSidebar = () => {
 
 .toggle-button {
   font-size: 1.5rem;
-  padding: .2rem 0.1rem;
+  padding: 0.2rem 0.1rem;
   transition: transform 0.4s ease;
   display: inline-block;
 }
@@ -194,7 +191,6 @@ const toggleSidebar = () => {
 
   .sidebar-container {
     width: 0;
-
   }
 
   .sidebar-header {

@@ -13,14 +13,14 @@
 
 <script setup lang="ts">
 defineProps<{
-  text?: string;
-}>();
+  text?: string
+}>()
 </script>
 
 <script lang="ts">
 export default {
-  name: "Loader",
-};
+  name: 'Loader',
+}
 </script>
 
 <style scoped>

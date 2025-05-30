@@ -9,20 +9,18 @@
           <button class="close-btn" @click="close">×</button>
         </header>
         <section class="modal-body">
-          <slot name="body"/>
+          <slot name="body" />
         </section>
         <footer class="modal-footer">
-          <slot name="footer">
-          </slot>
+          <slot name="footer"> </slot>
         </footer>
       </div>
     </div>
   </transition>
 </template>
 
-
 <script lang="ts" setup>
-import {defineEmits, defineProps} from 'vue'
+import { defineEmits, defineProps } from 'vue'
 
 interface props {
   visible: boolean
@@ -37,7 +35,6 @@ function close() {
 </script>
 
 <style scoped>
-
 .modal-fade-enter-from,
 .modal-fade-leave-to {
   opacity: 0;
@@ -52,7 +49,7 @@ function close() {
 
 .modal-fade-enter-active,
 .modal-fade-leave-active {
-  transition: all .3s ease; /* 900ms duration */
+  transition: all 0.3s ease; /* 900ms duration */
 }
 
 .modal-backdrop {
@@ -100,8 +97,6 @@ function close() {
 }
 
 @media (max-width: 640px) {
-
-
   .modal-content {
     width: 100%;
     position: absolute;

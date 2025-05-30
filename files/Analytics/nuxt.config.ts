@@ -1,2 +1,2 @@
 // home/nuxt.config.ts
-export default defineNuxtConfig({});
+export default defineNuxtConfig({})

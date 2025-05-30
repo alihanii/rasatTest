@@ -1,39 +1,34 @@
 <template>
   <button
-      :class="[
-      'base-button',
-      `variant-${variant}`,
-      size,
-      { 'is-loading': loading },
-    ]"
-      :disabled="disabled || loading"
-      @click="$emit('click', $event)"
+    :class="['base-button', `variant-${variant}`, size, { 'is-loading': loading }]"
+    :disabled="disabled || loading"
+    @click="$emit('click', $event)"
   >
-    <SpinnerLoading v-if="loading"/>
-    <slot v-else/>
+    <SpinnerLoading v-if="loading" />
+    <slot v-else />
   </button>
 </template>
 
 <script setup lang="ts">
-import {SpinnerLoading} from "~/components";
+import { SpinnerLoading } from '~/components'
 
 interface Props {
-  variant?: "primary" | "text" | "border";
-  size?: "tiny" | "small" | "medium" | "large";
-  disabled?: boolean;
-  loading?: boolean;
+  variant?: 'primary' | 'text' | 'border'
+  size?: 'tiny' | 'small' | 'medium' | 'large'
+  disabled?: boolean
+  loading?: boolean
 }
 
 withDefaults(defineProps<Props>(), {
-  variant: "primary",
-  size: "medium",
+  variant: 'primary',
+  size: 'medium',
   disabled: false,
   loading: false,
-});
+})
 
 defineEmits<{
-  (e: "click", event: MouseEvent): void;
-}>();
+  (e: 'click', event: MouseEvent): void
+}>()
 </script>
 
 <style scoped>

@@ -1,31 +1,26 @@
 <template>
-  <div class="swiper-container" dir="ltr"
-  >
+  <div class="swiper-container" dir="ltr">
     <div class="swiper-wrapper" :style="wrapperStyle">
       <div
-          v-for="(slide, index) in slides"
-          :key="index"
-          class="swiper-slide"
-          :class="{ active: currentIndex === index }"
+        v-for="(slide, index) in slides"
+        :key="index"
+        class="swiper-slide"
+        :class="{ active: currentIndex === index }"
       >
-        <Loader v-if="loadingStates[index]"/>
+        <Loader v-if="loadingStates[index]" />
         <img
-            class="!object-cover"
-            :src="slide.src"
-            :alt="slide.label"
-            @load="loadingStates[index] = false"
-        >
+          class="!object-cover"
+          :src="slide.src"
+          :alt="slide.label"
+          @load="loadingStates[index] = false"
+        />
 
-        <div class="slide-text"
-        >
-          <h6 class="text-3xl font-bold mb-2">{{ slide.text.title }}</h6>
-          <span class="text-xl ">{{ slide.text.description }}</span>
+        <div class="slide-text">
+          <h6 class="mb-2 text-3xl font-bold">{{ slide.text.title }}</h6>
+          <span class="text-xl">{{ slide.text.description }}</span>
         </div>
 
-        <button
-            class="slide-label"
-            @click="router.push({ name: slide.routeName })"
-        >
+        <button class="slide-label" @click="router.push({ name: slide.routeName })">
           {{ slide.text.label }}
         </button>
       </div>
@@ -40,87 +35,86 @@
 
     <div class="dots-container">
       <span
-          v-for="(_, index) in slides"
-          :key="index"
-          :class="['dot', { active: currentIndex === index }]"
-          @click="goToSlide(index)"
+        v-for="(_, index) in slides"
+        :key="index"
+        :class="['dot', { active: currentIndex === index }]"
+        @click="goToSlide(index)"
       />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import {ref, computed, onMounted, onUnmounted} from "vue";
-import {useRouter} from "vue-router";
-import type {Component} from "vue";
-import LoaderComponent from "./Loader.vue";
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { useRouter } from 'vue-router'
+import type { Component } from 'vue'
+import LoaderComponent from './Loader.vue'
 
-const Loader = LoaderComponent as Component;
+const Loader = LoaderComponent as Component
 
 interface Slide {
-  src: string;
-  text: { label: string, title: string, description: string };
-  routeName: string;
+  src: string
+  text: { label: string; title: string; description: string }
+  routeName: string
 }
 
 const props = withDefaults(
-    defineProps<{
-      slides: Slide[];
-      autoScrollInterval?: number;
-    }>(),
-    {
-      autoScrollInterval: 5000,
-    }
-);
+  defineProps<{
+    slides: Slide[]
+    autoScrollInterval?: number
+  }>(),
+  {
+    autoScrollInterval: 5000,
+  },
+)
 
-const router = useRouter();
-const currentIndex = ref(0);
-let timer: ReturnType<typeof setInterval> | null = null;
+const router = useRouter()
+const currentIndex = ref(0)
+let timer: ReturnType<typeof setInterval> | null = null
 
-const loadingStates = ref(props.slides.map(() => true));
+const loadingStates = ref(props.slides.map(() => true))
 
 const wrapperStyle = computed(() => ({
   transform: `translateX(-${currentIndex.value * 100}%)`,
-}));
+}))
 
 const nextSlide = () => {
-  currentIndex.value = (currentIndex.value + 1) % props.slides.length;
-  resetAutoScroll();
-};
+  currentIndex.value = (currentIndex.value + 1) % props.slides.length
+  resetAutoScroll()
+}
 
 const prevSlide = () => {
-  currentIndex.value =
-      currentIndex.value === 0 ? props.slides.length - 1 : currentIndex.value - 1;
-  resetAutoScroll();
-};
+  currentIndex.value = currentIndex.value === 0 ? props.slides.length - 1 : currentIndex.value - 1
+  resetAutoScroll()
+}
 
 const goToSlide = (index: number) => {
-  currentIndex.value = index;
-  resetAutoScroll();
-};
+  currentIndex.value = index
+  resetAutoScroll()
+}
 
 const startAutoScroll = () => {
   timer = setInterval(() => {
-    nextSlide();
-  }, props.autoScrollInterval);
-};
+    nextSlide()
+  }, props.autoScrollInterval)
+}
 
 const resetAutoScroll = () => {
   if (timer) {
-    clearInterval(timer);
+    clearInterval(timer)
   }
-  startAutoScroll();
-};
+  startAutoScroll()
+}
 
 onMounted(() => {
-  startAutoScroll();
-});
+  startAutoScroll()
+})
 
 onUnmounted(() => {
   if (timer) {
-    clearInterval(timer);
+    clearInterval(timer)
   }
-});
+})
 </script>
 
 <style scoped>
@@ -160,7 +154,9 @@ onUnmounted(() => {
   font-size: 1.1rem;
   cursor: pointer;
   border: none;
-  transition: transform 0.2s ease, background-color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
 }
 
 .slide-text {
@@ -171,13 +167,11 @@ onUnmounted(() => {
   left: 20px;
   padding: 8px 16px;
   border-radius: 4px;
-
 }
 
 .slide-label:hover {
   transform: scale(1.05);
   background: rgba(0, 0, 0, 0.8);
-
 }
 
 .nav-button {
