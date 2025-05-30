@@ -31,8 +31,8 @@ export async function getPosts(query: {
   })
 }
 
-export async function createPost(post: Post): Promise<Post> {
-  return await useRequest<Post>('https://jsonplaceholder.typicode.com/posts', {
+export async function createPost(post: Omit<Post, 'id'>): Promise<Omit<Post, 'id'>> {
+  return await useRequest<Omit<Post, 'id'>>('https://jsonplaceholder.typicode.com/posts', {
     method: 'POST',
     body: post,
   })

@@ -15,7 +15,7 @@
       <template #columns="{ item, isHeader }">
         <DataListColumn :width="250">
           <template v-if="isHeader" #header>
-            <SerachInput title="title" v-model="searchTitle" />
+            <SerachInput v-model="searchTitle" title="title" />
           </template>
           <template v-else #default>
             <p class="truncate">{{ item.title }}</p>
