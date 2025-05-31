@@ -7,45 +7,28 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: { dir: 'rtl', lang: 'fa' },
-
       link: [
         {
           rel: 'stylesheet',
           href: 'https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css',
         },
+        {
+          rel: 'manifest',
+          href: '/manifest.webmanifest',
+        },
+        {
+          rel: 'apple-touch-icon',
+          href: '/icons/icon-192x192.png',
+        },
+      ],
+      meta: [
+        { name: 'theme-color', content: '#C2D932' },
+        { name: 'apple-mobile-web-app-capable', content: 'yes' },
+        { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
       ],
     },
   },
   css: ['~/assets/css/main.css'],
   extends: ['./files/posts', './files/analytics'],
   modules: ['@nuxt/eslint', '@nuxt/fonts', '@nuxt/icon', '@nuxt/ui', '@vite-pwa/nuxt'],
-  pwa: {
-    registerType: 'autoUpdate',
-    manifest: {
-      name: 'rasa test app',
-      short_name: 'RasaTestApp',
-      description: 'Description of your app',
-      theme_color: '#C2D932FF',
-      background_color: '#f3f4f6',
-      display: 'standalone',
-      orientation: 'portrait',
-      start_url: '/',
-      icons: [
-        {
-          src: '/icons/icon-192x192.png',
-          sizes: '192x192',
-          type: 'image/png',
-        },
-        {
-          src: '/icons/icon-512x512.png',
-          sizes: '512x512',
-          type: 'image/png',
-        },
-      ],
-    },
-    workbox: {
-      navigateFallback: '/',
-      globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
-    },
-  },
 })
