@@ -17,7 +17,7 @@ const chartOptions: ApexOptions = {
   labels: ['ایران', 'هلند', 'عراق', 'ژاپن', 'عمان'],
   responsive: [
     {
-      breakpoint: 480,
+      breakpoint: 222,
       options: {
         chart: {
           width: 300,

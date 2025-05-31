@@ -32,7 +32,7 @@ const mergedOpts = computed<ApexOptions>(() => {
       fontFamily: 'Estedad, sans-serif',
     },
     legend: {
-      position: 'bottom',
+      position: 'top',
       horizontalAlign: 'right',
     },
   }
